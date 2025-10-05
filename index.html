@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLOOMWATCH PAGE</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #fff7fc 50%, #f6c1df 100%);
+            font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        .navbar {
+            width: 100%;
+            background: #f767b1;
+            padding: 16px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: #fff;
+            letter-spacing: 2px;
+            font-size: 1.2rem;
+            box-shadow: 0 2px 10px rgba(200, 120, 210, 0.06);
+            z-index: 10;
+        }
+        .container {
+            max-width: 520px;
+            margin: 60px auto;
+            background: #fff;
+            border-radius: 24px;
+            box-shadow: 0 6px 32px rgba(246, 103, 177, 0.14);
+            padding: 40px 34px 32px;
+            text-align: center;
+            z-index: 20;
+            position: relative;
+            border: 4px solid #f767b1;
+        }
+        .animated-text {
+            font-size: 2rem;
+            color: #d44f8c;
+            font-weight: 900;
+            letter-spacing: 1px;
+            min-height: 2.4em;
+            margin-bottom: 16px;
+            z-index: 2;
+            position: relative;
+        }
+        .logo {
+            margin-bottom:20px;
+            position: relative;
+            z-index: 2;
+        }
+        .logo img {
+            width: 600px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        .subtitle {
+            font-size: 1.1rem;
+            color: #777;
+            margin-bottom: 28px;
+        }
+        .btn-main {
+            padding: 12px 34px;
+            background: #f767b1;
+            color: #fff;
+            border: none;
+            border-radius: 22px;
+            font-size: 1.15rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.19s;
+            margin-top: 12px;
+        }
+        .btn-main:hover, .btn-main:focus {
+            background: #d44f8c;
+        }
+        .footer {
+            text-align: center;
+            color: #c278b3;
+            padding: 18px 0;
+            font-size: 1rem;
+            background: #fff0fa;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            letter-spacing: 0.5px;
+            z-index: 10;
+        }
+
+        .flower {
+            position: fixed;
+            top: -100px;
+            font-size: 2rem;
+            pointer-events: none;
+            user-select: none;
+            z-index: 5;
+            transition: opacity 0.3s;
+        }
+
+        /* Blooming flowers on sides of container */
+        .side-flower {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2.6rem;
+            opacity: 0;
+            animation: bloom 1.8s forwards;
+        }
+        .side-flower.left {
+            left: -38px;
+            animation-delay: 0.4s;
+        }
+        .side-flower.right {
+            right: -38px;
+            animation-delay: 1.2s;
+        }
+        @keyframes bloom {
+            0% { transform: scale(0) translateY(-50%); opacity: 0; }
+            70% { transform: scale(1.18) translateY(-46%); opacity: 0.85; }
+            100% { transform: scale(1) translateY(-50%); opacity: 1; }
+        }
+
+        @media (max-width: 500px) {
+            .container {
+                padding: 20px 10px 24px;
+            }
+            .navbar {
+                font-size: 1rem;
+                padding: 10px 0;
+            }
+            .logo img {
+                width: 90vw;
+                max-width:100%;
+            }
+            .animated-text {
+                font-size: 1.1rem;
+            }
+            .side-flower {
+                font-size: 1.7rem;
+                left: -18px;
+                right: -18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        🌸 BloomWatch
+    </div>
+    <main>
+        <div class="container">
+            <span class="side-flower left">🌸</span>
+            <span class="side-flower right">🌸</span>
+            <div class="animated-text" id="animated-logo-text"></div>
+            <div class="logo">
+                <img src="BLOOM.jpg" alt="BloomWatch Logo" style="width:450px; height:auto;">
+            </div>
+            <div class="subtitle">
+                Track and explore real-time bloom locations worldwide.
+            </div>
+            <button class="btn-main" onclick="window.location.href='map.html'">Open Bloom Map</button>
+        </div>
+    </main>
+    <div class="footer">
+        &copy; 2025 | Made with &#10084; by BloomWatch Team
+    </div>
+    <script>
+        // Animated logo text
+        const animatedElement = document.getElementById('animated-logo-text');
+        const animatedText = '🌸WELCOME TO BLOOMWATCH🌸';
+        let aIndex = 0;
+        function typeAnimatedLetter() {
+            if (aIndex < animatedText.length) {
+                animatedElement.textContent += animatedText.charAt(aIndex);
+                aIndex++;
+                setTimeout(typeAnimatedLetter, 140);
+            }
+        }
+        setTimeout(typeAnimatedLetter, 400);
+
+        // Falling flower animation
+        const flowerTypes = ["🌸","🌺","💮","🏵"];
+        function createFlower() {
+            const flower = document.createElement('div');
+            flower.className = 'flower';
+            flower.style.left = Math.random() * window.innerWidth + 'px';
+            flower.style.fontSize = (Math.random() * 1.7 + 1.3) + 'rem';
+            flower.textContent = flowerTypes[Math.floor(Math.random() * flowerTypes.length)];
+            document.body.appendChild(flower);
+
+            // Animation variables
+            let top = -60;
+            const speed = Math.random() * 4 + 2;
+            const sway = Math.random() * 100 + 40;
+            const moveFlower = () => {
+                top += speed;
+                flower.style.top = top + 'px';
+                flower.style.left = (
+                    parseInt(flower.style.left) +
+                    Math.sin(top / sway) * 2
+                ) + 'px';
+
+                if (top < window.innerHeight + 40) {
+                    requestAnimationFrame(moveFlower);
+                } else {
+                    flower.style.opacity = '0';
+                    setTimeout(() => flower.remove(), 300);
+                }
+            };
+            moveFlower();
+        }
+
+        // Start flowers falling
+        setInterval(createFlower, 430);
+
+        // Responsive with window resize
+        window.addEventListener('resize', () => {
+            document.querySelectorAll('.flower').forEach(flower => {
+                flower.style.left = Math.random() * window.innerWidth + 'px';
+            });
+        });
+    </script>
+</body>
+</html>

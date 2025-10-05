@@ -1,0 +1,21 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "prediction": 85 },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ -0.09, 51.505 ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "prediction": 35 },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ -0.10, 51.51 ]
+      }
+    }
+  ]
+}
